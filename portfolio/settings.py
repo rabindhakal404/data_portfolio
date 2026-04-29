@@ -7,7 +7,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['rabindhakal404.com.np', 'www.rabindhakal404.com.np', 'your-app.onrender.com']
+ALLOWED_HOSTS = ['rabindhakal404.com.np', 'www.rabindhakal404.com.np', 'data-portfolio-hexz.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
