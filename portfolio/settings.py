@@ -2,7 +2,6 @@ from pathlib import Path
 from decouple import config
 import os
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,9 +24,9 @@ INSTALLED_APPS = [
 ]
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
 }
 
 
