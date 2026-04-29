@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ project.title }} — {{ profile.name }}{% endblock %}
+
+{% block content %}
+<div class="project-detail-wrapper">
+  <a href="{% url 'projects' %}" class="back-link">&#8592; Back to Projects</a>
+
+  {% if project.image %}
+    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="detail-image">
+  {% else %}
+    <div class="detail-placeholder">&#128202;</div>
+  {% endif %}
+
+  <h1 class="detail-title">{{ project.title }}</h1>
+  <p class="detail-date">{{ project.date|date:"F Y" }}</p>
+  <hr class="detail-divider">
+
+  <div class="detail-description">{{ project.long_description|linebreaks }}</div>
+
+  <h4 class="detail-tools-heading">Tools Used</h4>
+  <div class="tool-chips">
+    {% for tool in tools_list %}
+    <span class="chip">{{ tool }}</span>
+    {% endfor %}
+  </div>
+
+  <div class="detail-links">
+    {% if project.github_url %}
+      <a href="{{ project.github_url }}" class="btn-primary" target="_blank" rel="noopener">GitHub &#8594;</a>
+    {% endif %}
+    {% if project.live_url %}
+      <a href="{{ project.live_url }}" class="btn-secondary" target="_blank" rel="noopener">Live Demo &#8594;</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block footer_name %}{{ profile.name }}{% endblock %}

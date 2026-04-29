@@ -1,0 +1,104 @@
+{% extends 'core/base.html' %}
+
+{% block title %}About — {{ profile.name }}{% endblock %}
+
+{% block content %}
+<div class="about-wrapper">
+
+  <!-- BIO -->
+  <section class="about-bio-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>About Me</h2>
+        <div class="gradient-underline"></div>
+      </div>
+      <div class="about-bio-card">
+        {% if profile.profile_photo %}
+          <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}" class="about-photo">
+        {% endif %}
+        <div class="about-bio-text">
+          <h3>{{ profile.name }}</h3>
+          <p class="about-role">{{ profile.title }}</p>
+          <p class="about-desc">{{ profile.bio }}</p>
+          <a href="{% url 'download_cv' %}" class="btn-primary" style="margin-top:1.5rem;">&#11015; Download CV</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="about-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Work Experience</h2>
+        <div class="gradient-underline"></div>
+      </div>
+      {% if experiences %}
+      <div class="timeline">
+        {% for exp in experiences %}
+        <div class="timeline-item fade-in">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-position">{{ exp.position }}</h3>
+                <p class="timeline-company">{{ exp.company }}</p>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-dates">
+                  {{ exp.start_date|date:"M Y" }} &mdash;
+                  {% if exp.is_present %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                </span>
+                <span class="timeline-duration">{{ exp.duration }}</span>
+              </div>
+            </div>
+            {% if exp.description %}
+            <p class="timeline-desc">{{ exp.description }}</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="empty-msg">No experience added yet.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section class="about-section about-section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Certificates &amp; Achievements</h2>
+        <div class="gradient-underline"></div>
+      </div>
+      {% if certificates %}
+      <div class="cert-grid">
+        {% for cert in certificates %}
+        <div class="cert-card fade-in">
+          {% if cert.image %}
+            <img src="{{ cert.image.url }}" alt="{{ cert.name }}" class="cert-img">
+          {% else %}
+            <div class="cert-img-placeholder">&#127941;</div>
+          {% endif %}
+          <div class="cert-body">
+            <h4 class="cert-name">{{ cert.name }}</h4>
+            {% if cert.issuer %}<p class="cert-issuer">{{ cert.issuer }}</p>{% endif %}
+            {% if cert.date_issued %}<p class="cert-date">{{ cert.date_issued|date:"M Y" }}</p>{% endif %}
+            {% if cert.description %}<p class="cert-desc">{{ cert.description }}</p>{% endif %}
+            {% if cert.credential_url %}
+              <a href="{{ cert.credential_url }}" target="_blank" rel="noopener" class="cert-link">View Credential &#8594;</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="empty-msg">No certificates added yet.</p>
+      {% endif %}
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+{% block footer_name %}{{ profile.name }}{% endblock %}

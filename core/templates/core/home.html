@@ -1,0 +1,150 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ profile.name }} — Data Analyst Portfolio{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero" id="hero">
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="hero-container container">
+    <div class="hero-content fade-in">
+      <span class="eyebrow-pill">&#10022; Data Analyst &amp; Python Enthusiast</span>
+      <h1 class="hero-title">Hi, I'm <span class="gradient-text">{{ profile.name }}</span></h1>
+      <p class="hero-subtitle-role">{{ profile.title }}</p>
+      <p class="hero-bio">{{ profile.bio }}</p>
+      <div class="cta-row">
+        <a href="{% url 'download_cv' %}" class="btn-primary">&#11015; Download CV</a>
+        <a href="/projects/" class="btn-secondary">View Projects &#8594;</a>
+      </div>
+    </div>
+    <div class="hero-image-wrapper fade-in">
+      <div class="hero-image-frame">
+        {% if profile.profile_photo %}
+          <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}">
+        {% else %}
+          <div class="photo-placeholder">{{ profile.name|slice:":2"|upper }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS SECTION -->
+<section class="skills-section" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <h2>My Skills</h2>
+      <div class="gradient-underline"></div>
+      <p>Technologies and tools I work with to analyze data and build insights.</p>
+    </div>
+    <div class="skills-grid">
+      {% for skill in skills %}
+      <div class="skill-card fade-in">
+        {% if skill.skill_image %}
+          <img src="{{ skill.skill_image.url }}" alt="{{ skill.name }}" class="skill-img">
+        {% else %}
+          <div class="skill-img-placeholder">{{ skill.icon_emoji }}</div>
+        {% endif %}
+        <span class="skill-name">{{ skill.name }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS SECTION -->
+{% if featured_projects %}
+<section class="featured-section" id="featured-projects">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Projects</h2>
+      <div class="gradient-underline"></div>
+      <p>A selection of my best data analysis work.</p>
+    </div>
+    <div class="featured-grid">
+      {% for project in featured_projects %}
+      <div class="project-card fade-in">
+        <div class="card-image">
+          {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+          {% else %}
+            <div class="card-placeholder">&#128202;</div>
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{ project.title }}</h3>
+          <p class="card-desc">{{ project.short_description }}</p>
+          <div class="tool-chips">
+            {% for tool in project.tools_used.split %}
+            <span class="chip">{{ tool|cut:"," }}</span>
+            {% endfor %}
+          </div>
+          <div class="card-footer">
+            <span class="card-date">{{ project.date|date:"M Y" }}</span>
+            <a href="{% url 'project_detail' project.pk %}" class="card-link">View Details &#8594;</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="{% url 'projects' %}" class="btn-secondary">View All Projects &#8594;</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <h2>Let's <span class="gradient-text">Connect</span></h2>
+      <div class="gradient-underline"></div>
+    </div>
+    <div class="contact-inner">
+      <p class="contact-intro">Feel free to reach out.</p>
+      <div class="contact-cards">
+
+        <a href="mailto:{{ profile.email }}" class="contact-card">
+          <div class="contact-icon-box"><i class="bi bi-envelope"></i></div>
+          <div class="contact-info">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">{{ profile.email }}</span>
+          </div>
+        </a>
+
+        <a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon-box"><i class="bi bi-github"></i></div>
+          <div class="contact-info">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">View my code</span>
+          </div>
+        </a>
+
+        <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon-box"><i class="bi bi-linkedin"></i></div>
+          <div class="contact-info">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">Connect with me</span>
+          </div>
+        </a>
+
+        {% if profile.instagram_url %}
+        <a href="{{ profile.instagram_url }}" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon-box"><i class="bi bi-instagram"></i></div>
+          <div class="contact-info">
+            <span class="contact-label">Instagram</span>
+            <span class="contact-value">Follow me</span>
+          </div>
+        </a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block footer_name %}{{ profile.name }}{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Projects — {{ profile.name }}{% endblock %}
+
+{% block content %}
+<div style="padding-top: 100px;">
+  <div class="section-header container" style="margin-bottom: 3rem;">
+    <h2>Projects</h2>
+    <div class="gradient-underline"></div>
+    <p>All of my data analysis and data science projects.</p>
+  </div>
+  <div class="projects-main-grid container">
+    {% for project in projects %}
+    <div class="project-card fade-in">
+      <div class="card-image">
+        {% if project.image %}
+          <img src="{{ project.image.url }}" alt="{{ project.title }}">
+        {% else %}
+          <div class="card-placeholder">&#128202;</div>
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">{{ project.title }}</h3>
+        <p class="card-desc">{{ project.short_description }}</p>
+        <div class="tool-chips">
+          {% for tool in project.tools_used.split %}
+          <span class="chip">{{ tool|cut:"," }}</span>
+          {% endfor %}
+        </div>
+        <div class="card-footer">
+          <span class="card-date">{{ project.date|date:"M Y" }}</span>
+          <a href="{% url 'project_detail' project.pk %}" class="card-link">View Details &#8594;</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p style="color: var(--text-muted); text-align:center; grid-column: 1/-1;">No projects yet. Add some from the admin panel.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block footer_name %}{{ profile.name }}{% endblock %}
