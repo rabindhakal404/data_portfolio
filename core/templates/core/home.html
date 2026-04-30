@@ -107,14 +107,14 @@
       <p class="contact-intro">Feel free to reach out.</p>
       <div class="contact-cards">
 
-        <a href="mailto:{{ profile.email }}" target="_blank" class="contact-card">
+        <a href="https://mail.google.com/mail/?view=cm&to={{ profile.email }}" target="_blank" class="contact-card">
           <div class="contact-icon-box"><i class="bi bi-envelope"></i></div>
           <div class="contact-info">
             <span class="contact-label">Email</span>
             <span class="contact-value" style="font-size: 0.75rem; word-break: break-all;">{{ profile.email }}</span>
           </div>
         </a>
-        
+
         <a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="contact-card">
           <div class="contact-icon-box"><i class="bi bi-github"></i></div>
           <div class="contact-info">
