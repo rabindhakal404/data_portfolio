@@ -7,7 +7,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['rabindhakal404.com.np', 'www.rabindhakal404.com.np', '.koyeb.app']
+ALLOWED_HOSTS = ['rabindhakal404.com.np', 'www.rabindhakal404.com.np', 'rabin404.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
